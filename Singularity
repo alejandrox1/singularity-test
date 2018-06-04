@@ -9,7 +9,8 @@ From: ubuntu:18.04
     Singularity test - running a container MPI executable.
 
 %files
-    ./mpi_hello_world /usr/bin/
+    ./mpi_hello_world.c
+    ./Makefile
 
 %post
     #apt-get update -y && apt-get install -y libcr-dev mpich2
@@ -32,7 +33,10 @@ From: ubuntu:18.04
     /usr/local/bin/mpirun --allow-run-as-root /usr/bin/mpi_ring
 
 %environment
+    # export PATH="$PATH:$PWD"
 
 %runscript
     cat /etc/*release
+    make
+    cp mpi_hello_world /usr/bin/
     exec /usr/local/bin/mpirun --version
