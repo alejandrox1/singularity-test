@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH -A my_project
 #SBATCH -p partition
-#SBATCH -N 2
-#SBATCH -n 16
+#SBATCH -N 1
+#SBATCH -n 30
 #SBATCH --exclusive
-#SBATCH -t 2-0 
-#SBATCH -J Job_name
+#SBATCH -t 30:00 
+#SBATCH -J singularity-test
 #SBATCH -o slurm.%j.out
 #SBATCH -o slurm.%j.eout
 #SBATCH --mail-type=ALL
@@ -40,6 +40,15 @@
 # 
 #   remora_post_crash <JOBID>
 #
+set -e
+set -o pipefail
 module load remora
 
-remora ibrun my_parallel_program [arguments]
+IMG="ubuntu-ompi.simg"
+
+export MPICC=mpiicc
+make
+singularity pull --name "${IMG}" shub://alejandrox1/singularity-test
+remora ibrun -np 30 singularity exec --bind ${PWD}/src:/usr/bin "${IMG}" /usr/bin/mpi_hello_world
+remora ibrun -np 30 singularity exec --bind ${PWD}:/usr/bin "${IMG}" ./src/mpi_hello_world
+remora ibrun -np 30 singularity exec "${IMG}" ./src/mpi_hello_world
