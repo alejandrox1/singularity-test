@@ -24,3 +24,5 @@ executable on the Stampede2 supercomputer.
   indefinetely alternating between `S` and `R` states.
 
 * `MPICH` doesn't seem to work - hence the use of `OpenMPI`.
+
+* Work around for mounting PWD on stampede: `mkdir /work /scratch`
