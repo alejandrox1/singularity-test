@@ -34,9 +34,13 @@ mkdir -p "${SQUASH_SRC}" && \
     [ -d "${SQUASH_VERSION}" ] && rm -rf "${SQUASH_VERSION}" && \
     wget "https://sourceforge.net/projects/squashfs/files/squashfs/squashfs${SQUASH_VERSION}/squashfs${SQUASH_VERSION}.tar.gz" && \
     tar -xvzf "squashfs${SQUASH_VERSION}.tar.gz" && \
-    mv "squashfs${SQUASH_VERSION}" "${SQUASH_VERSION}" && \
+    rm -rf "squashfs${SQUASH_VERSION}.tar.gz" && \
+    mv "squashfs${SQUASH_VERSION}" "v${SQUASH_VERSION}" && \
+    cd "v${SQUASH_VERSION}" && \
+    cd squashfs-tools && \
+    make
 
-
+export PATH="$PATH:${SQUASH_SRC}/v${SQUASH_VERSION}/squashfs-tools"
 export CPPFLAGS="-I/work/05692/jochoa/stampede2/apps/libarchive/v3.3.2/include"
 export LDFLAGS="-L/work/05692/jochoa/stampede2/apps/libarchive/v3.3.2/lib"
 
