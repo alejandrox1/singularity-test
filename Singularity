@@ -37,6 +37,8 @@ From: ubuntu:18.04
 
 %runscript
     cat /etc/*release
+    cd src/
     make
-    cp mpi_hello_world /usr/bin/
+    cd ../
+    cp src/mpi_hello_world /usr/bin/
     exec /usr/local/bin/mpirun --version
