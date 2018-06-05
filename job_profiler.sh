@@ -43,12 +43,14 @@
 set -e
 set -o pipefail
 module load remora
+module load tacc-singularity
 
 IMG="ubuntu-ompi.simg"
 
 export MPICC=mpiicc
-make
+
+(cd src; make)
 singularity pull --name "${IMG}" shub://alejandrox1/singularity-test
-remora ibrun -np 30 singularity exec --bind ${PWD}/src:/usr/bin "${IMG}" /usr/bin/mpi_hello_world
-remora ibrun -np 30 singularity exec --bind ${PWD}:/usr/bin "${IMG}" ./src/mpi_hello_world
+#remora ibrun -np 30 singularity exec --bind ${PWD}/src:/usr/bin "${IMG}" /usr/bin/mpi_hello_world
+#remora ibrun -np 30 singularity exec --bind ${PWD}:/usr/bin "${IMG}" ./src/mpi_hello_world
 remora ibrun -np 30 singularity exec "${IMG}" ./src/mpi_hello_world
