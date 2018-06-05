@@ -12,3 +12,11 @@ executable on the Stampede2 supercomputer.
   **TODO**:
   1. Finish installation of `squash-tools`.
   2. Make modules for `libarchive-dev` and `squash-tools`.
+
+## Notes:
+* `./src/mpi_hello_world` hangs when executed on a container based off `ubuntu
+  16.04`. When checking the system resources, `mpirun singularity exec ubuntu
+  mpi_hello_world` is indeed creating MPI tasks, however processes hang
+  indefinetely alternating between `S` and `R` states.
+
+* `MPICH` doesn't seem to work - hence the use of `OpenMPI`.
