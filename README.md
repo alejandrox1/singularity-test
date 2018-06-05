@@ -7,8 +7,12 @@ executable on the Stampede2 supercomputer.
 
 * [src](src/) contains the code necessary to build an executable.
 
-* [module](module/) contains the necessary files to install Singularity v2.5.1
-  on the stampede2 supercomputer, along with its dependencies.
+* [module](module/) Stampede2 currently has version 2.3.1 installed as the
+  module `tacc-singularity`. This is an atempt to install Singularity v2.5.1
+  on the stampede2 supercomputer, along with its dependencies (there were
+  significant changes to the API and Singularity itself between versions 2.3.X
+  and 2.4.X). This still needs work...
+
   **TODO**:
   1. Finish installation of `squash-tools`.
   2. Make modules for `libarchive-dev` and `squash-tools`.
