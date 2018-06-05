@@ -21,8 +21,8 @@ mkdir -p "${LIBARCHIVE_SRC}" && \
     cd "${LIBARCHIVE_VERSION}" && \
     git fetch origin --tags --prune && \
     git checkout "${LIBARCHIVE_VERSION}" && \
-    build/autogen.sh && \
-    ./configure --prefix="${LIBARCHIVE_VERSION}" && \
+    ./build/autogen.sh && \
+    ./configure --prefix="${LIBARCHIVE_SRC}/${LIBARCHIVE_VERSION}" && \
     make && \
     make install
 
