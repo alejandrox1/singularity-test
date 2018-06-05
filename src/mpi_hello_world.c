@@ -1,6 +1,18 @@
 #include <mpi.h>
 #include <stdio.h>
 
+void os_info()
+{   
+    int c;
+    FILE *file;
+    file = fopen("/etc/lsb-release", "r");
+    if (file)
+    {
+        while ((c = getc(file)) != EOF)
+            putchar(c);
+        fclose(file);
+    }
+}
 
 int main(int argc, char **argv) {
 	// Initialize MPI environment.
@@ -25,4 +37,7 @@ int main(int argc, char **argv) {
 
 	// Finalize MPI environment.
 	MPI_Finalize();
+
+    os_info();
+    return 0;
 }
