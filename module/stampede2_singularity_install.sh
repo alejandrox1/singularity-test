@@ -11,6 +11,8 @@ export CC=gcc
 APPS_SRC="/work/05692/jochoa/stampede2/apps"
 LIBARCHIVE_SRC="${APPS_SRC}/libarchive"
 LIBARCHIVE_VERSION="v3.3.2"
+SQUASH_SRC="${APPS_SRC}/squashfs-tools"
+SQUASH_VERSION="4.3"
 SINGULARITY_SRC="${APPS_SRC}/singularity"
 SINGULARITY_VERSION="2.5.1"
 
@@ -27,6 +29,16 @@ mkdir -p "${LIBARCHIVE_SRC}" && \
     make && \
     make install
 
+mkdir -p "${SQUASH_SRC}" && \
+    cd "${SQUASH_SRC}" && \
+    [ -d "${SQUASH_VERSION}" ] && rm -rf "${SQUASH_VERSION}" && \
+    wget "https://sourceforge.net/projects/squashfs/files/squashfs/squashfs${SQUASH_VERSION}/squashfs${SQUASH_VERSION}.tar.gz" && \
+    tar -xvzf "squashfs${SQUASH_VERSION}.tar.gz" && \
+    mv "squashfs${SQUASH_VERSION}" "${SQUASH_VERSION}" && \
+
+
+export CPPFLAGS="-I/work/05692/jochoa/stampede2/apps/libarchive/v3.3.2/include"
+export LDFLAGS="-L/work/05692/jochoa/stampede2/apps/libarchive/v3.3.2/lib"
 
 mkdir -p "${SINGULARITY_SRC}" && \
     cd "${SINGULARITY_SRC}" && \
